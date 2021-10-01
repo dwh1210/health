@@ -119,4 +119,13 @@ public class SetmealServiceImpl implements SetmealService {
         //再删除套餐
         setmealDao.deleteById(id);
     }
+
+    /**
+     * 查询数据库中套餐的所有图片
+     * @return
+     */
+    @Override
+    public List<String> findImgs() {
+        return setmealDao.findImgs();
+    }
 }

@@ -69,4 +69,10 @@ public interface SetmealDao {
      * @param id
      */
     void deleteById(int id);
+
+    /**
+     * 查询数据库中套餐的所有图片
+     * @return
+     */
+    List<String> findImgs();
 }
