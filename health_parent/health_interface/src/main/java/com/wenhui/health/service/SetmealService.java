@@ -58,4 +58,17 @@ public interface SetmealService {
      * @return
      */
     List<String> findImgs();
+
+    /**
+     * 查询所有套餐
+     * @return
+     */
+    List<Setmeal> findAll();
+
+    /**
+     * 查询详情套餐
+     * @param id
+     * @return
+     */
+    Setmeal findDetailById(int id);
 }
