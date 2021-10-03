@@ -16,8 +16,9 @@ public interface SetmealService {
      * 添加套餐
      * @param setmeal
      * @param checkGroupIds
+     * @return
      */
-    void add(Setmeal setmeal, Integer[] checkGroupIds);
+    Integer add(Setmeal setmeal, Integer[] checkGroupIds);
 
     /**
      * 分页查询

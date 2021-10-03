@@ -9,6 +9,7 @@
                   http://www.springframework.org/schema/mvc/spring-mvc.xsd
                   http://code.alibabatech.com/schema/dubbo
                   http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <import resource="classpath:spring-redis.xml"/>
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
             <!--不需要视图解析器，项目中的所有的请求都返回json数据结构-->
@@ -53,4 +54,5 @@
         <property name="maxInMemorySize" value="4096" />
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
+
 </beans>

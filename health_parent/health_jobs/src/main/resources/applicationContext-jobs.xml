@@ -18,4 +18,8 @@
 		<context:component-scan/>
     -->
     <dubbo:annotation package="com.wenhui.health.job" />
+
+    <import resource="classpath:spring-redis.xml"/>
+
+    <import resource="classpath:spring-freemarker.xml"/>
 </beans>

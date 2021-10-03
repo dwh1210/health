@@ -38,10 +38,16 @@
         <poi.version>3.14</poi.version>
         <jedis.version>2.9.0</jedis.version>
         <quartz.version>2.2.1</quartz.version>
+        <freemarker.version>2.3.23</freemarker.version>
     </properties>
     <!-- 依赖管理标签  必须加 -->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
             <!--阿里云服务器短信平台-->
             <dependency>
                 <groupId>com.aliyun</groupId>

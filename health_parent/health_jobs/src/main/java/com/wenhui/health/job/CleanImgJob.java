@@ -22,7 +22,7 @@ public class CleanImgJob {
     @Reference
     private SetmealService setmealService;
 
-    @Scheduled(initialDelay = 3000,fixedDelay = 1800000)
+    //@Scheduled(initialDelay = 3000,fixedDelay = 1800000)
     public void cleanImg(){
        logger.info("任务执行了");
         List<String> img7Niu = QiNiuUtils.listFile();

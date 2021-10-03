@@ -10,9 +10,12 @@ import com.wenhui.health.service.SetmealService;
 import com.wenhui.health.utils.QiNiuUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -32,6 +35,9 @@ public class SetmealController {
     private SetmealService setmealService;
 
     private  static final Logger logger = LoggerFactory.getLogger(SetmealController.class);
+
+    @Autowired
+    private JedisPool jedisPool;
 
     /**
      * 套餐图片上传
@@ -68,7 +74,12 @@ public class SetmealController {
     @PostMapping("/add")
     public Result add(@RequestBody Setmeal setmeal, Integer[] checkGroupIds) {
         //调用服务来添加
-        setmealService.add(setmeal, checkGroupIds);
+        Integer setmealId = setmealService.add(setmeal, checkGroupIds);
+        //生成静态页面
+        Jedis jedis = jedisPool.getResource();
+        String key = "setmeal:static:html";
+        jedis.sadd(key,setmealId + "|1|" +System.currentTimeMillis());
+        jedis.close();
         return new Result(true,MessageConstant.ADD_SETMEAL_SUCCESS);
     }
 
@@ -111,6 +122,10 @@ public class SetmealController {
     public Result update(@RequestBody Setmeal setmeal, Integer[] checkGroupIds){
         //调用服务更新
         setmealService.update(setmeal, checkGroupIds);
+        Jedis jedis = jedisPool.getResource();
+        String key = "setmeal:static:html";
+        jedis.sadd(key,setmeal.getId() + "|1|" +System.currentTimeMillis());
+        jedis.close();
         return new Result(true,"更新套餐成功");
     }
 
@@ -120,6 +135,10 @@ public class SetmealController {
     @PostMapping("/deleteById")
     public Result deleteById(int id){
         setmealService.deleteById(id);
+        Jedis jedis = jedisPool.getResource();
+        String key = "setmeal:static:html";
+        jedis.sadd(key,id + "|0|" +System.currentTimeMillis());
+        jedis.close();
         return new Result(true,"删除套餐成功");
     }
 }
